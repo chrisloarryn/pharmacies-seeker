@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/xml"
 	"net/http"
 	"pharmacies-seeker/internal/core/usecases"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
@@ -22,11 +23,17 @@ func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx *fiber.Ctx) error 
 	communeName := ctx.Query("commune", "")
 	responseType := ctx.Query("type")
 
+	pharmacies, err := handler.uc.Execute(ctx.Context(), communeName)
+
 	if responseType == "xml" {
-		return reply(ctx, http.StatusNotImplemented, "XML was not implemented yet", nil)
+		xmlBytes, err := xml.Marshal(pharmacies)
+		if err != nil {
+			return err
+		}
+		ctx.Set("Content-Type", "application/xml")
+		return ctx.SendString(string(xmlBytes))
 	}
 
-	pharmacies, err := handler.uc.Execute(ctx.Context(), communeName)
 	if err != nil {
 		return reply(ctx, http.StatusInternalServerError, err.Error(), nil)
 	}

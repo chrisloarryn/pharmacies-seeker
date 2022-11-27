@@ -36,7 +36,7 @@
 			},
 			"response": [
 				{
-					"name": "xml type [json response, not xml implemented error]",
+					"name": "xml type",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -63,18 +63,18 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": "json",
+					"_postman_previewlanguage": "xml",
 					"header": [
 						{
 							"key": "Content-Type",
-							"value": "application/json",
+							"value": "application/xml",
 							"name": "Content-Type",
 							"description": "",
 							"type": "text"
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"message\": \"XML was not implemented yet\"\n}"
+					"body": "<Pharmacy>\n    <local_nombre>CRUZ VERDE</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>LOS GINKOS 5 LOCAL 11,12,13</local_direccion>\n    <local_telefono>+56322857355</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>CRUZ VERDE</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>AV. CON CON REÑACA 3850 LOCAL 1013</local_direccion>\n    <local_telefono>+56322858104</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>CRUZ VERDE</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>MAGALLANES 866</local_direccion>\n    <local_telefono>+56322813636</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>AHUMADA</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>MANANTIALES 945 LOCAL 104</local_direccion>\n    <local_telefono>+560226313224</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>SALCOBRAND</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>AV. CON CON REÑACA  3850 LOCAL 1004</local_direccion>\n    <local_telefono>+56322857737</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>MONTEMAR</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>BORGOÑO 25180</local_direccion>\n    <local_telefono>+56322813051</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>DR. SIMI</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>MAGALLANES 1050 L-16</local_direccion>\n    <local_telefono>+56322588998</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>SALCOBRAND</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>MANANTIALES 1021 - 1121 LOCAL 1B</local_direccion>\n    <local_telefono>+56322818518</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>PETHOUSE</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>AV. CONCóN REñACA Nº3400 L-10</local_direccion>\n    <local_telefono>+56322857974</local_telefono>\n</Pharmacy>\n<Pharmacy>\n    <local_nombre>CRUZ VERDE</local_nombre>\n    <comuna_nombre>CONCON</comuna_nombre>\n    <local_direccion>AV. MAGALLANES 1050 L-1</local_direccion>\n    <local_telefono>+56323521308</local_telefono>\n</Pharmacy>"
 				}
 			]
 		},
