@@ -2,19 +2,19 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"pharmacies-seeker/internal/http/server/handlers"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
+	"pharmacies-seeker/internal/shared/constants"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type ServerHTTP struct{}
 
-//func Run (container )
-
-// TODO: implement router and other handlers
 func Run(container dependencies.Container) {
 	r := fiber.New()
 
@@ -24,7 +24,6 @@ func Run(container dependencies.Container) {
 		log.Fatal(err)
 	}
 	container.PharmaciesRepository().LoadAll(context.TODO(), list)
-
 
 	r.Get("/", pingpong)
 	r.Get("/ping", pingpong)
@@ -39,13 +38,12 @@ func Run(container dependencies.Container) {
 	getAllHandler := handlers.NewFindAllPharmaciesHandler(container)
 	getOneHandler := handlers.NewFindOnePharmacyHandler(container)
 
-	// TODO: The designed endpoints must use proper HTTP verb, REST naming conventions and return correct HTTP code.
-	// TODO:
-
 	v1.Get("/pharmacies", getAllHandler.GetAllPharmacies)
 	v1.Get("/pharmacies/commune", getOneHandler.FindOnePharmacy)
 
-	log.Fatal(r.Listen(":3000"))
+	port := os.Getenv(constants.Port)
+
+	log.Fatal(r.Listen(fmt.Sprintf(":%s", port)))
 }
 
 func pingpong(ctx *fiber.Ctx) error {
