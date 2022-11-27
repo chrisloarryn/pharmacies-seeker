@@ -45,3 +45,19 @@ api:
 - Docker Compose
 - Make
 - Git
+
+## Swagger
+```shell
+
+# To generate a swagger spec document for a go application
+$ swagger generate spec -o ./swagger.json
+
+# Spec validation tool
+$ swagger validate https://raw.githubusercontent.com/swagger-api/swagger-spec/master/examples/v2.0/json/petstore-expanded.json
+
+# Generate a client from a swagger spec
+$ swagger generate client [-f ./swagger.json] -A [application-name [--principal [principal-name]]
+
+# Generate a server from a swagger spec
+$ swagger generate server -f ./swagger.json -A [application-name] [--principal [principal-name]]
+```

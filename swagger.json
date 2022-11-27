@@ -1,0 +1,60 @@
+{
+  "swagger": "2.0",
+  "info": {},
+  "paths": {},
+  "definitions": {
+    "Pharmacy": {
+      "description": "This type is used for unmarshaling JSON.",
+      "type": "object",
+      "title": "Pharmacy is a pharmacy",
+      "properties": {
+        "comuna_nombre": {
+          "description": "The commune name",
+          "type": "string",
+          "x-go-name": "ComunaNombre"
+        },
+        "local_direccion": {
+          "description": "The local address",
+          "type": "string",
+          "x-go-name": "LocalDireccion"
+        },
+        "local_nombre": {
+          "description": "The local name",
+          "type": "string",
+          "x-go-name": "LocalNombre"
+        },
+        "local_telefono": {
+          "description": "The local phone",
+          "type": "string",
+          "x-go-name": "LocalTelefono"
+        }
+      },
+      "x-go-name": "Pharmacies",
+      "x-go-package": "pharmacies-seeker/internal/core/domain/pharmacy"
+    },
+    "PharmacyXML": {
+      "description": "This type is used for unmarshaling JSON.",
+      "type": "object",
+      "title": "PharmacyXML is a pharmacy",
+      "properties": {
+        "ComunaNombre": {
+          "description": "The commune name",
+          "type": "string"
+        },
+        "LocalDireccion": {
+          "description": "The local address",
+          "type": "string"
+        },
+        "LocalNombre": {
+          "description": "The local name",
+          "type": "string"
+        },
+        "LocalTelefono": {
+          "description": "The local phone",
+          "type": "string"
+        }
+      },
+      "x-go-package": "pharmacies-seeker/internal/core/domain/pharmacy"
+    }
+  }
+}

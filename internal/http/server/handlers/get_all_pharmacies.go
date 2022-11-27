@@ -19,6 +19,13 @@ func NewFindAllPharmaciesHandler(container dependencies.Container) *FindAllPharm
 	}
 }
 
+// swagger: route GET /pharmacies getAllPharmacies
+//
+// # Get all pharmacies
+//
+// Responses:
+//
+// - 200: GetAllPharmaciesResponse
 func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx *fiber.Ctx) error {
 	communeName := ctx.Query("commune", "")
 	responseType := ctx.Query("type")

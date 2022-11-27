@@ -34,22 +34,47 @@ func (r *Pharmacy) ToXMLInterface() (PharmacyXML, error) {
 	return xml, err
 }
 
+// Pharmacies is an array of Pharmacy
+//
+// This type is used for unmarshaling JSON.
+//
+// swagger:model Pharmacy
 type Pharmacies struct {
+	// The pharmacies
+	// in: body
 	Pharmacies []Pharmacy `json:"pharmacies"`
 }
 
+// Pharmacy is a pharmacy
+//
+// This type is used for unmarshaling JSON.
+//
+// swagger:model Pharmacy
 type Pharmacy struct {
-	LocalNombre    string `json:"local_nombre,omitempty" xml:"local_nombre,omitempty"`
-	ComunaNombre   string `json:"comuna_nombre,omitempty" xml:"comuna_nombre,omitempty"`
+	// The local name
+	LocalNombre string `json:"local_nombre,omitempty" xml:"local_nombre,omitempty"`
+	// The commune name
+	ComunaNombre string `json:"comuna_nombre,omitempty" xml:"comuna_nombre,omitempty"`
+	// The local address
 	LocalDireccion string `json:"local_direccion,omitempty" xml:"local_direccion,omitempty"`
-	LocalTelefono  string `json:"local_telefono,omitempty" xml:"local_telefono,omitempty"`
+	// The local phone
+	LocalTelefono string `json:"local_telefono,omitempty" xml:"local_telefono,omitempty"`
 }
 
+// PharmacyXML is a pharmacy
+//
+// This type is used for unmarshaling JSON.
+//
+// swagger:model PharmacyXML
 type PharmacyXML struct {
-	LocalNombre    string `xml:"local_nombre,omitempty"`
-	ComunaNombre   string `xml:"comuna_nombre,omitempty"`
+	// The local name
+	LocalNombre string `xml:"local_nombre,omitempty"`
+	// The commune name
+	ComunaNombre string `xml:"comuna_nombre,omitempty"`
+	// The local address
 	LocalDireccion string `xml:"local_direccion,omitempty"`
-	LocalTelefono  string `xml:"local_telefono,omitempty"`
+	// The local phone
+	LocalTelefono string `xml:"local_telefono,omitempty"`
 }
 
 //go:generate mockgen -package mocks -destination mocks/pharmacies_repository_mocks.go . Repository
