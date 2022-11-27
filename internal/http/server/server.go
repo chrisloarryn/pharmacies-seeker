@@ -3,14 +3,11 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"log"
 	"net/http"
-	"os"
 	"pharmacies-seeker/internal/http/server/handlers"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
-	"pharmacies-seeker/internal/shared/constants"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 type ServerHTTP struct{}
@@ -41,7 +38,7 @@ func Run(container dependencies.Container) {
 	v1.Get("/pharmacies", getAllHandler.GetAllPharmacies)
 	v1.Get("/pharmacies/commune", getOneHandler.FindOnePharmacy)
 
-	port := os.Getenv(constants.Port)
+	port := container.Config().Server.Port
 
 	log.Fatal(r.Listen(fmt.Sprintf(":%s", port)))
 }

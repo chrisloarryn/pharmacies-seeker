@@ -6,10 +6,9 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"os"
+	"pharmacies-seeker/cmd/config"
 	"pharmacies-seeker/internal/core/domain/fetcher"
 	"pharmacies-seeker/internal/core/domain/pharmacy"
-	"pharmacies-seeker/internal/shared/constants"
 )
 
 type apiClientHTTP struct {
@@ -42,7 +41,6 @@ func (c *apiClientHTTP) RetrievePharmacies(ctx context.Context) ([]pharmacy.Phar
 	return pharmacies, nil
 }
 
-func NewFetcherService() fetcher.Service {
-	serviceURL := os.Getenv(constants.ApiServiceUrlName)
-	return &apiClientHTTP{url: serviceURL}
+func NewFetcherService(c config.Config) fetcher.Service {
+	return &apiClientHTTP{url: c.Api.Pharmacy.Url}
 }
