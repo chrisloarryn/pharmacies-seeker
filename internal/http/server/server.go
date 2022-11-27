@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"pharmacies-seeker/internal/http/server/handlers"
@@ -45,7 +46,9 @@ func Run(container dependencies.Container) {
 	v1.Get("/pharmacies", getAllHandler.GetAllPharmacies)
 	v1.Get("/pharmacies/commune", getOneHandler.FindOnePharmacy)
 
-	log.Fatal(r.Listen(":3000"))
+	port := container.Config().Server.Port
+
+	log.Fatal(r.Listen(fmt.Sprintf(":%s", port)))
 }
 
 func pingpong(ctx *fiber.Ctx) error {

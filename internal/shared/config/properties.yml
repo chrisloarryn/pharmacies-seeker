@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+api:
+  pharmacy:
+    url: https://farmanet.minsal.cl/index.php/ws/getLocales

@@ -3,6 +3,7 @@ package inmemory
 import (
 	"context"
 	"errors"
+	"pharmacies-seeker/cmd/config"
 	"pharmacies-seeker/internal/core/domain/fetcher"
 	"pharmacies-seeker/internal/core/domain/pharmacy"
 	"pharmacies-seeker/internal/http/client/fetcherService"
@@ -44,9 +45,9 @@ func (r *Repository) LoadAll(ctx context.Context, pharmacies []pharmacy.Pharmacy
 	return nil
 }
 
-func NewInMemoryRepository() pharmacy.Repository {
+func NewInMemoryRepository(c config.Config) pharmacy.Repository {
 	return &Repository{
 		list:    []pharmacy.Pharmacy{},
-		fetcher: fetcherService.NewFetcherService(),
+		fetcher: fetcherService.NewFetcherService(c),
 	}
 }

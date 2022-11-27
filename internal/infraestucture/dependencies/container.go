@@ -1,6 +1,7 @@
 package dependencies
 
 import (
+	"pharmacies-seeker/cmd/config"
 	"pharmacies-seeker/internal/core/domain/fetcher"
 	"pharmacies-seeker/internal/core/domain/pharmacy"
 	"pharmacies-seeker/internal/http/client/fetcherService"
@@ -8,21 +9,29 @@ import (
 )
 
 type Container interface {
+	Config() config.Config
 	FetcherService() fetcher.Service
 	PharmaciesRepository() pharmacy.Repository
 }
 
 type container struct {
-	fetcherService      fetcher.Service
+	cfg                  config.Config
+	fetcherService       fetcher.Service
 	pharmaciesRepository pharmacy.Repository
 }
 
-func NewContainer() Container {
-	fSvc := fetcherService.NewFetcherService()
+func NewContainer(c config.Config) Container {
+	fSvc := fetcherService.NewFetcherService(c)
+
 	return &container{
-		pharmaciesRepository: storage.New(),
-		fetcherService:      fSvc,
+		cfg:                  c,
+		pharmaciesRepository: storage.New(c),
+		fetcherService:       fSvc,
 	}
+}
+
+func (c *container) Config() config.Config {
+	return c.cfg
 }
 
 func (c *container) FetcherService() fetcher.Service {
