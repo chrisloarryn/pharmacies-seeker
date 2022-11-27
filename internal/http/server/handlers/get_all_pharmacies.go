@@ -1,9 +1,7 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
-	"pharmacies-seeker/internal/core/domain/pharmacy"
 	"pharmacies-seeker/internal/core/usecases"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
 
@@ -24,36 +22,14 @@ func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx *fiber.Ctx) error 
 	communeName := ctx.Query("commune", "")
 	responseType := ctx.Query("type")
 
+	if responseType == "xml" {
+		return reply(ctx, http.StatusNotImplemented, "XML was not implemented yet", nil)
+	}
+
 	pharmacies, err := handler.uc.Execute(ctx.Context(), communeName)
 	if err != nil {
-		ctx.JSON(err.Error())
-		ctx.SendStatus(http.StatusInternalServerError)
-		return err
+		return reply(ctx, http.StatusInternalServerError, err.Error(), nil)
 	}
 
-	if responseType == "xml" {
-		fmt.Println("XML was not implemented yet")
-		var xmlPharmacies []pharmacy.PharmacyXML
-		for _, pharmacy := range pharmacies {
-			//parse to xml
-			r, err := pharmacy.ToXMLInterface()
-			if err != nil {
-				ctx.JSON(err.Error())
-				ctx.SendStatus(http.StatusInternalServerError)
-				return err
-			}
-			xmlPharmacies = append(xmlPharmacies, r)
-		}
-		// set content type to xml
-		ctx.Set("Content-Type", "application/xml")
-		ctx.JSON(xmlPharmacies)
-		// convert to xml
-
-		// return xml
-		ctx.Format(pharmacies)
-	}
-
-	ctx.JSON(pharmacies)
-	ctx.SendStatus(http.StatusOK)
-	return nil
+	return reply(ctx, http.StatusOK, "OK", pharmacies)
 }
