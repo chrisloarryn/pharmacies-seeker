@@ -39,6 +39,15 @@ api:
     url: https://farmanet.minsal.cl/index.php/ws/getLocales
 ```
 
+### Tools
+
+- [Go](https://go.dev/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Fiber](https://gofiber.io/)
+- [Viper](https://github.com/spf13/viper)
+- [Mock](github.com/golang/mock)
+- [Testify](github.com/stretchr/testify)
 ### Requirements
 
 - Go 1.18
@@ -49,6 +58,7 @@ api:
 
 ### Endpoints
 
+#### host: `localhost:8080`
 #### prefix: `/api/v1`
 
 - `GET /pharmacies?commune={commune}&type={type}`
