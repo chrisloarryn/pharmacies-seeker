@@ -42,7 +42,7 @@ func (r *Pharmacy) ToXMLInterface() (PharmacyXML, error) {
 type Pharmacies struct {
 	// The pharmacies
 	// in: body
-	Pharmacies []Pharmacy `json:"pharmacies"`
+	Pharmacies []Pharmacy `json:"pharmacies,omitempty" xml:"pharmacies,omitempty"`
 }
 
 // Pharmacy is a pharmacy

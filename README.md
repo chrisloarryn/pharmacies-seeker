@@ -12,7 +12,7 @@ This is a simple script to find pharmacies in a given city.
 ## go executable
 $ go run cmd/main.go
 ```
-    
+
 ```bash
 ## Build the image
 $ docker build -t pharmacies-seeker .
@@ -38,6 +38,7 @@ api:
   pharmacy:
     url: https://farmanet.minsal.cl/index.php/ws/getLocales
 ```
+
 ### Requirements
 
 - Go 1.18
@@ -46,7 +47,72 @@ api:
 - Make
 - Git
 
-## Swagger
+### Endpoints
+
+#### prefix: `/api/v1`
+
+- `GET /pharmacies?commune={commune}&type={type}`
+
+### Examples
+
+##### Request for pharmacies in a given `commune` and type `json`
+
+```bash
+$ curl -X GET "http://localhost:8080/api/v1/pharmacies?commune=CONCON&type="
+```
+
+#### type=JSON (default)
+
+```json5
+{
+  "message": "OK",
+  "data": [
+    {
+      "local_nombre": "CRUZ VERDE",
+      "comuna_nombre": "CONCON",
+      "local_direccion": "LOS GINKOS 5 LOCAL 11,12,13",
+      "local_telefono": "+56322857355"
+    },
+    {
+      "local_nombre": "CRUZ VERDE",
+      "comuna_nombre": "CONCON",
+      "local_direccion": "AV. CON CON REÑACA 3850 LOCAL 1013",
+      "local_telefono": "+56322858104"
+    },
+  ]
+}
+````
+
+--
+
+##### Request for pharmacies in a given `commune` and type `xml`
+
+```bash
+$ curl -X GET "http://localhost:8080/api/v1/pharmacies?commune=CONCON&type=xml"
+```
+
+#### type=XML
+
+```xml
+
+<Pharmacies>
+    <Pharmacy>
+        <local_nombre>CRUZ VERDE</local_nombre>
+        <comuna_nombre>CONCON</comuna_nombre>
+        <local_direccion>LOS GINKOS 5 LOCAL 11,12,13</local_direccion>
+        <local_telefono>+56322857355</local_telefono>
+    </Pharmacy>
+    <Pharmacy>
+        <local_nombre>CRUZ VERDE</local_nombre>
+        <comuna_nombre>CONCON</comuna_nombre>
+        <local_direccion>AV. CON CON REÑACA 3850 LOCAL 1013</local_direccion>
+        <local_telefono>+56322858104</local_telefono>
+    </Pharmacy>
+</Pharmacies>
+```
+
+### Swagger
+
 ```shell
 
 # To generate a swagger spec document for a go application

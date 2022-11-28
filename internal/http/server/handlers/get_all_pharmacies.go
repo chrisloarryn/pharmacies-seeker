@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/xml"
 	"net/http"
+	"pharmacies-seeker/internal/core/domain/pharmacy"
 	"pharmacies-seeker/internal/core/usecases"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
 
@@ -33,7 +34,11 @@ func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx *fiber.Ctx) error 
 	pharmacies, err := handler.uc.Execute(ctx.Context(), communeName)
 
 	if responseType == "xml" {
-		xmlBytes, err := xml.Marshal(pharmacies)
+		var pharmaciesXML pharmacy.Pharmacies
+
+		pharmaciesXML.Pharmacies = pharmacies
+
+		xmlBytes, err := xml.Marshal(pharmaciesXML)
 		if err != nil {
 			return err
 		}
