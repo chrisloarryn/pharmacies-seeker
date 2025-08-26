@@ -1,154 +1,228 @@
 {
-  "info": {
-    "_postman_id": "e84bccb3-e4db-4fc4-8f4f-c626bced6d48",
-    "name": "pharmacies-seeker",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "8636249"
-  },
-  "item": [
-    {
-      "name": "xml type",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=xml",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "pharmacies"
-          ],
-          "query": [
-            {
-              "key": "commune",
-              "value": "CONCON"
-            },
-            {
-              "key": "type",
-              "value": "xml"
-            }
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "xml type",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=xml",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "v1",
-                "pharmacies"
-              ],
-              "query": [
-                {
-                  "key": "commune",
-                  "value": "CONCON"
-                },
-                {
-                  "key": "type",
-                  "value": "xml"
-                }
-              ]
-            }
-          },
-          "_postman_previewlanguage": "xml",
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/xml",
-              "name": "Content-Type",
-              "description": "",
-              "type": "text"
-            }
-          ],
-          "cookie": [],
-          "body": "<Pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>LOS GINKOS 5 LOCAL 11,12,13</local_direccion>\n        <local_telefono>+56322857355</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CON CON REÑACA 3850 LOCAL 1013</local_direccion>\n        <local_telefono>+56322858104</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MAGALLANES 866</local_direccion>\n        <local_telefono>+56322813636</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>AHUMADA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MANANTIALES 945 LOCAL 104</local_direccion>\n        <local_telefono>+560226313224</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>SALCOBRAND</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CON CON REÑACA  3850 LOCAL 1004</local_direccion>\n        <local_telefono>+56322857737</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>FAMIFARMA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>CALLE SIETE 685</local_direccion>\n        <local_telefono>+56322816359</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>MONTEMAR</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>BORGOÑO 25180</local_direccion>\n        <local_telefono>+56322813051</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>DR. SIMI</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MAGALLANES 1050 L-16</local_direccion>\n        <local_telefono>+56322588998</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>SALCOBRAND</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MANANTIALES 1021 - 1121 LOCAL 1B</local_direccion>\n        <local_telefono>+56322818518</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>GEOFARMA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CONCóN REñACA N°372 L-1</local_direccion>\n        <local_telefono>+56323424366</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>COMUNAL CONCON</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>CHAÑARCILLO 1150</local_direccion>\n        <local_telefono>+560</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CENTRO MÉDICO IST CONCÓN</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>LAS PELARGONIAS 59, CONCON</local_direccion>\n        <local_telefono>+56322518604</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>PUNTO FARMACIA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>LAS ENCINAS 1390 LOCAL 17</local_direccion>\n        <local_telefono>+563292382243</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>DIÁLISIS SAN JOSE DE CHIMBARONGO</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>CLARENCIA 896</local_direccion>\n        <local_telefono>+56322814695</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>PETHOUSE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CONCóN REñACA Nº3400 L-10</local_direccion>\n        <local_telefono>+56322857974</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>TOGA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AVENIDA CON CON REÑACA Nº 110, L-5</local_direccion>\n        <local_telefono>+5696698424</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. MAGALLANES 1050 L-1</local_direccion>\n        <local_telefono>+56323521308</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>DR. SIMI</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. SANTA MARÍA 150 L-3</local_direccion>\n        <local_telefono>+56979059769</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>SANA SANA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CONCON REÑACA 296</local_direccion>\n        <local_telefono>+56022416 8359</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>GEOFARMA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. BLANCA ESTELA 2095 L-3, 4, 11 Y 12</local_direccion>\n        <local_telefono>+56996308768</local_telefono>\n    </pharmacies>\n</Pharmacies>"
-        }
-      ]
-    },
-    {
-      "name": "json type",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=json",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "v1",
-            "pharmacies"
-          ],
-          "query": [
-            {
-              "key": "commune",
-              "value": "CONCON"
-            },
-            {
-              "key": "type",
-              "value": "json"
-            }
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "json type",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=json",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "v1",
-                "pharmacies"
-              ],
-              "query": [
-                {
-                  "key": "commune",
-                  "value": "CONCON"
-                },
-                {
-                  "key": "type",
-                  "value": "json"
-                }
-              ]
-            }
-          },
-          "_postman_previewlanguage": "json",
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json",
-              "name": "Content-Type",
-              "description": "",
-              "type": "text"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"OK\",\n    \"data\": [\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LOS GINKOS 5 LOCAL 11,12,13\",\n            \"local_telefono\": \"+56322857355\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CON CON REÑACA 3850 LOCAL 1013\",\n            \"local_telefono\": \"+56322858104\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MAGALLANES 866\",\n            \"local_telefono\": \"+56322813636\"\n        },\n        {\n            \"local_nombre\": \"AHUMADA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MANANTIALES 945 LOCAL 104\",\n            \"local_telefono\": \"+560226313224\"\n        },\n        {\n            \"local_nombre\": \"SALCOBRAND\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CON CON REÑACA  3850 LOCAL 1004\",\n            \"local_telefono\": \"+56322857737\"\n        },\n        {\n            \"local_nombre\": \"FAMIFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CALLE SIETE 685\",\n            \"local_telefono\": \"+56322816359\"\n        },\n        {\n            \"local_nombre\": \"MONTEMAR\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"BORGOÑO 25180\",\n            \"local_telefono\": \"+56322813051\"\n        },\n        {\n            \"local_nombre\": \"DR. SIMI\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MAGALLANES 1050 L-16\",\n            \"local_telefono\": \"+56322588998\"\n        },\n        {\n            \"local_nombre\": \"SALCOBRAND\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MANANTIALES 1021 - 1121 LOCAL 1B\",\n            \"local_telefono\": \"+56322818518\"\n        },\n        {\n            \"local_nombre\": \"GEOFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCóN REñACA N°372 L-1\",\n            \"local_telefono\": \"+56323424366\"\n        },\n        {\n            \"local_nombre\": \"COMUNAL CONCON\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CHAÑARCILLO 1150\",\n            \"local_telefono\": \"+560\"\n        },\n        {\n            \"local_nombre\": \"CENTRO MÉDICO IST CONCÓN\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LAS PELARGONIAS 59, CONCON\",\n            \"local_telefono\": \"+56322518604\"\n        },\n        {\n            \"local_nombre\": \"PUNTO FARMACIA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LAS ENCINAS 1390 LOCAL 17\",\n            \"local_telefono\": \"+563292382243\"\n        },\n        {\n            \"local_nombre\": \"DIÁLISIS SAN JOSE DE CHIMBARONGO\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CLARENCIA 896\",\n            \"local_telefono\": \"+56322814695\"\n        },\n        {\n            \"local_nombre\": \"PETHOUSE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCóN REñACA Nº3400 L-10\",\n            \"local_telefono\": \"+56322857974\"\n        },\n        {\n            \"local_nombre\": \"TOGA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AVENIDA CON CON REÑACA Nº 110, L-5\",\n            \"local_telefono\": \"+5696698424\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. MAGALLANES 1050 L-1\",\n            \"local_telefono\": \"+56323521308\"\n        },\n        {\n            \"local_nombre\": \"DR. SIMI\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. SANTA MARÍA 150 L-3\",\n            \"local_telefono\": \"+56979059769\"\n        },\n        {\n            \"local_nombre\": \"SANA SANA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCON REÑACA 296\",\n            \"local_telefono\": \"+56022416 8359\"\n        },\n        {\n            \"local_nombre\": \"GEOFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. BLANCA ESTELA 2095 L-3, 4, 11 Y 12\",\n            \"local_telefono\": \"+56996308768\"\n        }\n    ]\n}"
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "bc3c3793-ea65-46cc-889d-9a4d11c6889d",
+		"name": "pharmacies-seeker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8636249",
+		"_collection_link": "https://chrisloarryn-team.postman.co/workspace/SAWA-PEC~d00680c3-620b-4b3b-ac7b-70269d6f2e13/collection/8636249-bc3c3793-ea65-46cc-889d-9a4d11c6889d?action=share&source=collection_link&creator=8636249"
+	},
+	"item": [
+		{
+			"name": "xml type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=xml",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pharmacies"
+					],
+					"query": [
+						{
+							"key": "commune",
+							"value": "CONCON"
+						},
+						{
+							"key": "type",
+							"value": "xml"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "xml type",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=xml",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pharmacies"
+							],
+							"query": [
+								{
+									"key": "commune",
+									"value": "CONCON"
+								},
+								{
+									"key": "type",
+									"value": "xml"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "xml",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/xml",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "<Pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>LOS GINKOS 5 LOCAL 11,12,13</local_direccion>\n        <local_telefono>+56322857355</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CON CON REÑACA 3850 LOCAL 1013</local_direccion>\n        <local_telefono>+56322858104</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MAGALLANES 866</local_direccion>\n        <local_telefono>+56322813636</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>AHUMADA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MANANTIALES 945 LOCAL 104</local_direccion>\n        <local_telefono>+560226313224</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>SALCOBRAND</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CON CON REÑACA  3850 LOCAL 1004</local_direccion>\n        <local_telefono>+56322857737</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>FAMIFARMA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>CALLE SIETE 685</local_direccion>\n        <local_telefono>+56322816359</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>MONTEMAR</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>BORGOÑO 25180</local_direccion>\n        <local_telefono>+56322813051</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>DR. SIMI</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MAGALLANES 1050 L-16</local_direccion>\n        <local_telefono>+56322588998</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>SALCOBRAND</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>MANANTIALES 1021 - 1121 LOCAL 1B</local_direccion>\n        <local_telefono>+56322818518</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>GEOFARMA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CONCóN REñACA N°372 L-1</local_direccion>\n        <local_telefono>+56323424366</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>COMUNAL CONCON</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>CHAÑARCILLO 1150</local_direccion>\n        <local_telefono>+560</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CENTRO MÉDICO IST CONCÓN</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>LAS PELARGONIAS 59, CONCON</local_direccion>\n        <local_telefono>+56322518604</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>PUNTO FARMACIA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>LAS ENCINAS 1390 LOCAL 17</local_direccion>\n        <local_telefono>+563292382243</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>DIÁLISIS SAN JOSE DE CHIMBARONGO</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>CLARENCIA 896</local_direccion>\n        <local_telefono>+56322814695</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>PETHOUSE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CONCóN REñACA Nº3400 L-10</local_direccion>\n        <local_telefono>+56322857974</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>TOGA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AVENIDA CON CON REÑACA Nº 110, L-5</local_direccion>\n        <local_telefono>+5696698424</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>CRUZ VERDE</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. MAGALLANES 1050 L-1</local_direccion>\n        <local_telefono>+56323521308</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>DR. SIMI</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. SANTA MARÍA 150 L-3</local_direccion>\n        <local_telefono>+56979059769</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>SANA SANA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. CONCON REÑACA 296</local_direccion>\n        <local_telefono>+56022416 8359</local_telefono>\n    </pharmacies>\n    <pharmacies>\n        <local_nombre>GEOFARMA</local_nombre>\n        <comuna_nombre>CONCON</comuna_nombre>\n        <local_direccion>AV. BLANCA ESTELA 2095 L-3, 4, 11 Y 12</local_direccion>\n        <local_telefono>+56996308768</local_telefono>\n    </pharmacies>\n</Pharmacies>"
+				}
+			]
+		},
+		{
+			"name": "json type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=json",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pharmacies"
+					],
+					"query": [
+						{
+							"key": "commune",
+							"value": "CONCON"
+						},
+						{
+							"key": "type",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "json type",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=json",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pharmacies"
+							],
+							"query": [
+								{
+									"key": "commune",
+									"value": "CONCON"
+								},
+								{
+									"key": "type",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\",\n    \"data\": [\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LOS GINKOS 5 LOCAL 11,12,13\",\n            \"local_telefono\": \"+56322857355\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CON CON REÑACA 3850 LOCAL 1013\",\n            \"local_telefono\": \"+56322858104\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MAGALLANES 866\",\n            \"local_telefono\": \"+56322813636\"\n        },\n        {\n            \"local_nombre\": \"AHUMADA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MANANTIALES 945 LOCAL 104\",\n            \"local_telefono\": \"+560226313224\"\n        },\n        {\n            \"local_nombre\": \"SALCOBRAND\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CON CON REÑACA  3850 LOCAL 1004\",\n            \"local_telefono\": \"+56322857737\"\n        },\n        {\n            \"local_nombre\": \"FAMIFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CALLE SIETE 685\",\n            \"local_telefono\": \"+56322816359\"\n        },\n        {\n            \"local_nombre\": \"MONTEMAR\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"BORGOÑO 25180\",\n            \"local_telefono\": \"+56322813051\"\n        },\n        {\n            \"local_nombre\": \"DR. SIMI\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MAGALLANES 1050 L-16\",\n            \"local_telefono\": \"+56322588998\"\n        },\n        {\n            \"local_nombre\": \"SALCOBRAND\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MANANTIALES 1021 - 1121 LOCAL 1B\",\n            \"local_telefono\": \"+56322818518\"\n        },\n        {\n            \"local_nombre\": \"GEOFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCóN REñACA N°372 L-1\",\n            \"local_telefono\": \"+56323424366\"\n        },\n        {\n            \"local_nombre\": \"COMUNAL CONCON\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CHAÑARCILLO 1150\",\n            \"local_telefono\": \"+560\"\n        },\n        {\n            \"local_nombre\": \"CENTRO MÉDICO IST CONCÓN\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LAS PELARGONIAS 59, CONCON\",\n            \"local_telefono\": \"+56322518604\"\n        },\n        {\n            \"local_nombre\": \"PUNTO FARMACIA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LAS ENCINAS 1390 LOCAL 17\",\n            \"local_telefono\": \"+563292382243\"\n        },\n        {\n            \"local_nombre\": \"DIÁLISIS SAN JOSE DE CHIMBARONGO\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CLARENCIA 896\",\n            \"local_telefono\": \"+56322814695\"\n        },\n        {\n            \"local_nombre\": \"PETHOUSE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCóN REñACA Nº3400 L-10\",\n            \"local_telefono\": \"+56322857974\"\n        },\n        {\n            \"local_nombre\": \"TOGA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AVENIDA CON CON REÑACA Nº 110, L-5\",\n            \"local_telefono\": \"+5696698424\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. MAGALLANES 1050 L-1\",\n            \"local_telefono\": \"+56323521308\"\n        },\n        {\n            \"local_nombre\": \"DR. SIMI\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. SANTA MARÍA 150 L-3\",\n            \"local_telefono\": \"+56979059769\"\n        },\n        {\n            \"local_nombre\": \"SANA SANA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCON REÑACA 296\",\n            \"local_telefono\": \"+56022416 8359\"\n        },\n        {\n            \"local_nombre\": \"GEOFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. BLANCA ESTELA 2095 L-3, 4, 11 Y 12\",\n            \"local_telefono\": \"+56996308768\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "xml type 24h",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/pharmacies/24h?commune=curico&type=xml",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pharmacies",
+						"24h"
+					],
+					"query": [
+						{
+							"key": "commune",
+							"value": "curico"
+						},
+						{
+							"key": "type",
+							"value": "xml"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "json type",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/pharmacies?commune=CONCON&type=json",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pharmacies"
+							],
+							"query": [
+								{
+									"key": "commune",
+									"value": "CONCON"
+								},
+								{
+									"key": "type",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"OK\",\n    \"data\": [\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LOS GINKOS 5 LOCAL 11,12,13\",\n            \"local_telefono\": \"+56322857355\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CON CON REÑACA 3850 LOCAL 1013\",\n            \"local_telefono\": \"+56322858104\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MAGALLANES 866\",\n            \"local_telefono\": \"+56322813636\"\n        },\n        {\n            \"local_nombre\": \"AHUMADA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MANANTIALES 945 LOCAL 104\",\n            \"local_telefono\": \"+560226313224\"\n        },\n        {\n            \"local_nombre\": \"SALCOBRAND\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CON CON REÑACA  3850 LOCAL 1004\",\n            \"local_telefono\": \"+56322857737\"\n        },\n        {\n            \"local_nombre\": \"FAMIFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CALLE SIETE 685\",\n            \"local_telefono\": \"+56322816359\"\n        },\n        {\n            \"local_nombre\": \"MONTEMAR\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"BORGOÑO 25180\",\n            \"local_telefono\": \"+56322813051\"\n        },\n        {\n            \"local_nombre\": \"DR. SIMI\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MAGALLANES 1050 L-16\",\n            \"local_telefono\": \"+56322588998\"\n        },\n        {\n            \"local_nombre\": \"SALCOBRAND\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"MANANTIALES 1021 - 1121 LOCAL 1B\",\n            \"local_telefono\": \"+56322818518\"\n        },\n        {\n            \"local_nombre\": \"GEOFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCóN REñACA N°372 L-1\",\n            \"local_telefono\": \"+56323424366\"\n        },\n        {\n            \"local_nombre\": \"COMUNAL CONCON\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CHAÑARCILLO 1150\",\n            \"local_telefono\": \"+560\"\n        },\n        {\n            \"local_nombre\": \"CENTRO MÉDICO IST CONCÓN\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LAS PELARGONIAS 59, CONCON\",\n            \"local_telefono\": \"+56322518604\"\n        },\n        {\n            \"local_nombre\": \"PUNTO FARMACIA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"LAS ENCINAS 1390 LOCAL 17\",\n            \"local_telefono\": \"+563292382243\"\n        },\n        {\n            \"local_nombre\": \"DIÁLISIS SAN JOSE DE CHIMBARONGO\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"CLARENCIA 896\",\n            \"local_telefono\": \"+56322814695\"\n        },\n        {\n            \"local_nombre\": \"PETHOUSE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCóN REñACA Nº3400 L-10\",\n            \"local_telefono\": \"+56322857974\"\n        },\n        {\n            \"local_nombre\": \"TOGA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AVENIDA CON CON REÑACA Nº 110, L-5\",\n            \"local_telefono\": \"+5696698424\"\n        },\n        {\n            \"local_nombre\": \"CRUZ VERDE\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. MAGALLANES 1050 L-1\",\n            \"local_telefono\": \"+56323521308\"\n        },\n        {\n            \"local_nombre\": \"DR. SIMI\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. SANTA MARÍA 150 L-3\",\n            \"local_telefono\": \"+56979059769\"\n        },\n        {\n            \"local_nombre\": \"SANA SANA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. CONCON REÑACA 296\",\n            \"local_telefono\": \"+56022416 8359\"\n        },\n        {\n            \"local_nombre\": \"GEOFARMA\",\n            \"comuna_nombre\": \"CONCON\",\n            \"local_direccion\": \"AV. BLANCA ESTELA 2095 L-3, 4, 11 Y 12\",\n            \"local_telefono\": \"+56996308768\"\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
 }

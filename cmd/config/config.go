@@ -1,7 +1,9 @@
 package config
 
 import (
+	"errors"
 	"fmt"
+
 	"github.com/spf13/viper"
 )
 
@@ -14,7 +16,8 @@ type Api struct {
 }
 
 type Pharmacy struct {
-	Url string
+	Url     string `mapstructure:"url"`
+	DutyUrl string `mapstructure:"duty_url"`
 }
 
 type Config struct {
@@ -25,17 +28,28 @@ type Config struct {
 // LoadConfig reads configuration from file or environment variables.
 func LoadConfig(path string) (config Config, err error) {
 	viper.SetConfigName("properties")
-
 	viper.AddConfigPath(path)
 	viper.SetConfigType("yml")
+
+	// Defaults
+	viper.SetDefault("server.port", "8080")
+	viper.SetDefault("api.pharmacy.url", "https://api.boostr.cl/pharmacies.json")
+	viper.SetDefault("api.pharmacy.duty_url", "https://api.boostr.cl/pharmacies/24h.json")
+
+	// Environment overrides
+	viper.AutomaticEnv()
+	_ = viper.BindEnv("server.port", "PORT")
+	_ = viper.BindEnv("api.pharmacy.url", "API_SERVICE_URL")
+	_ = viper.BindEnv("api.pharmacy.duty_url", "API_SERVICE_URL_24H")
+
+	// Read config file (lower precedence than env)
 	err = viper.ReadInConfig()
 	if err != nil {
-		return Config{}, err
+		var cfne viper.ConfigFileNotFoundError
+		if !errors.As(err, &cfne) { // Only fail for real parsing errors
+			return Config{}, err
+		}
 	}
-
-	// Set undefined variables
-	viper.SetDefault("server.port", "8080")
-	viper.SetDefault("api.pharmacy.url", "https://farmanet.minsal.cl/maps/index.php/ws/getLocalesRegion?id_region=6")
 
 	err = viper.Unmarshal(&config)
 	if err != nil {

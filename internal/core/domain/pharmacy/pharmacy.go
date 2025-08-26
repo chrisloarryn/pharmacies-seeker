@@ -42,7 +42,7 @@ func (r *Pharmacy) ToXMLInterface() (PharmacyXML, error) {
 type Pharmacies struct {
 	// The pharmacies
 	// in: body
-	Pharmacies []Pharmacy `json:"pharmacies,omitempty" xml:"pharmacies,omitempty"`
+	Pharmacies []Pharmacy `json:"pharmacies,omitempty" xml:"PHARMACIES,omitempty"`
 }
 
 // Pharmacy is a pharmacy
@@ -52,13 +52,13 @@ type Pharmacies struct {
 // swagger:model Pharmacy
 type Pharmacy struct {
 	// The local name
-	LocalNombre string `json:"local_nombre,omitempty" xml:"local_nombre,omitempty"`
+	LocalNombre string `json:"local_nombre,omitempty" xml:"LOCAL_NOMBRE,omitempty"`
 	// The commune name
-	ComunaNombre string `json:"comuna_nombre,omitempty" xml:"comuna_nombre,omitempty"`
+	ComunaNombre string `json:"comuna_nombre,omitempty" xml:"COMUNA_NOMBRE,omitempty"`
 	// The local address
-	LocalDireccion string `json:"local_direccion,omitempty" xml:"local_direccion,omitempty"`
+	LocalDireccion string `json:"local_direccion,omitempty" xml:"LOCAL_DIRECCION,omitempty"`
 	// The local phone
-	LocalTelefono string `json:"local_telefono,omitempty" xml:"local_telefono,omitempty"`
+	LocalTelefono string `json:"local_telefono,omitempty" xml:"LOCAL_TELEFONO,omitempty"`
 }
 
 // PharmacyXML is a pharmacy
@@ -68,13 +68,13 @@ type Pharmacy struct {
 // swagger:model PharmacyXML
 type PharmacyXML struct {
 	// The local name
-	LocalNombre string `xml:"local_nombre,omitempty"`
+	LocalNombre string `xml:"LOCAL_NOMBRE,omitempty"`
 	// The commune name
-	ComunaNombre string `xml:"comuna_nombre,omitempty"`
+	ComunaNombre string `xml:"COMUNA_NOMBRE,omitempty"`
 	// The local address
-	LocalDireccion string `xml:"local_direccion,omitempty"`
+	LocalDireccion string `xml:"LOCAL_DIRECCION,omitempty"`
 	// The local phone
-	LocalTelefono string `xml:"local_telefono,omitempty"`
+	LocalTelefono string `xml:"LOCAL_TELEFONO,omitempty"`
 }
 
 //go:generate mockgen -package mocks -destination mocks/pharmacies_repository_mocks.go . Repository

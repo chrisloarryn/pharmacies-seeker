@@ -18,8 +18,10 @@ func NewFinderAllPharmacies(repository pharmacy.Repository) *FinderAllPharmacies
 
 // Execute finder in the repository of pharmacy
 func (f *FinderAllPharmacies) Execute(ctx context.Context, commune string) ([]pharmacy.Pharmacy, error) {
-	if err := pharmacy.ValidatePharmacyCommune(commune); err != nil {
-		return nil, err
+	if commune != "" {
+		if err := pharmacy.ValidatePharmacyCommune(commune); err != nil {
+			return nil, err
+		}
 	}
 	pharmaciesList, err := f.pharmaciesRepository.Find(ctx, commune)
 	if err != nil {

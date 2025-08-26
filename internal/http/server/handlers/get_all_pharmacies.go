@@ -6,6 +6,7 @@ import (
 	"pharmacies-seeker/internal/core/domain/pharmacy"
 	"pharmacies-seeker/internal/core/usecases"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -29,25 +30,35 @@ func NewFindAllPharmaciesHandler(container dependencies.Container) *FindAllPharm
 // - 200: GetAllPharmaciesResponse
 func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx *fiber.Ctx) error {
 	communeName := ctx.Query("commune", "")
+	name := ctx.Query("name", "")
 	responseType := ctx.Query("type")
 
 	pharmacies, err := handler.uc.Execute(ctx.Context(), communeName)
+	if err != nil {
+		return reply(ctx, http.StatusInternalServerError, err.Error(), nil)
+	}
+
+	// Optional name filter (case-insensitive contains)
+	if name != "" {
+		needle := strings.ToLower(name)
+		filtered := make([]pharmacy.Pharmacy, 0, len(pharmacies))
+		for _, p := range pharmacies {
+			if strings.Contains(strings.ToLower(p.LocalNombre), needle) {
+				filtered = append(filtered, p)
+			}
+		}
+		pharmacies = filtered
+	}
 
 	if responseType == "xml" {
 		var pharmaciesXML pharmacy.Pharmacies
-
 		pharmaciesXML.Pharmacies = pharmacies
-
 		xmlBytes, err := xml.Marshal(pharmaciesXML)
 		if err != nil {
 			return err
 		}
 		ctx.Set("Content-Type", "application/xml")
 		return ctx.SendString(string(xmlBytes))
-	}
-
-	if err != nil {
-		return reply(ctx, http.StatusInternalServerError, err.Error(), nil)
 	}
 
 	return reply(ctx, http.StatusOK, "OK", pharmacies)

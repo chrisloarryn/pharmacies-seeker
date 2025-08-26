@@ -10,4 +10,5 @@ import (
 // Service is the service abstraction to Pharmacy
 type Service interface {
 	RetrievePharmacies(ctx context.Context) ([]pharmacy.Pharmacy, error)
+	RetrievePharmacies24h(ctx context.Context) ([]pharmacy.Pharmacy, error)
 }

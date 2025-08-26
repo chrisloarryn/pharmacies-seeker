@@ -1,7 +1,7 @@
 ##
 ## Build
 ##
-FROM golang:1.17-buster AS build
+FROM golang:1.25-alpine AS build
 
 WORKDIR /app
 

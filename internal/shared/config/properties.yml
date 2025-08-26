@@ -3,4 +3,5 @@ server:
 
 api:
   pharmacy:
-    url: https://farmanet.minsal.cl/index.php/ws/getLocales
+    url: https://api.boostr.cl/pharmacies.json
+    duty_url: https://api.boostr.cl/pharmacies/24h.json

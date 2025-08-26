@@ -6,4 +6,5 @@ services:
       - "8080:8080"
     environment:
       PORT: 8080
-      API_SERVICE_URL: https://farmanet.minsal.cl/index.php/ws/getLocales
+      API_SERVICE_URL: https://api.boostr.cl/pharmacies.json
+      API_SERVICE_URL_24H: https://api.boostr.cl/pharmacies/24h.json
