@@ -1,8 +1,8 @@
 # pharmacies-seeker
 
-API en Go para consultar farmacias y farmacias de turno usando un proveedor remoto, con cache en memoria y refresh periódico.
+Go API for querying pharmacies and duty pharmacies using a remote provider, with in-memory caching and periodic refresh.
 
-## Arquitectura
+## Architecture
 
 ```text
 cmd/api
@@ -10,18 +10,18 @@ internal/pharmacies/{domain,app,adapters}
 internal/platform/{config,http,scheduler}
 ```
 
-## Requisitos
+## Requirements
 
 - Go 1.26.1
 - Docker
 - Docker Compose
 - Make
 
-## Configuración
+## Configuration
 
-La app carga defaults desde `internal/platform/config/properties.yml` y permite override por variables de entorno.
+The application loads defaults from `internal/platform/config/properties.yml` and allows overrides through environment variables.
 
-Variables soportadas:
+Supported variables:
 
 - `PORT`
 - `PROVIDER_REGULAR_URL`
@@ -34,7 +34,7 @@ Defaults:
 - `sync.interval=15m`
 - `sync.timeout=10s`
 
-## Desarrollo
+## Development
 
 ```bash
 make run
@@ -54,9 +54,9 @@ docker compose up --build
 - `GET /api/v1/pharmacies/{id}`
 - `GET /api/v1/pharmacies/duty?commune={commune}&name={name}`
 
-## Respuestas
+## Responses
 
-Listado:
+List:
 
 ```json
 {
@@ -72,7 +72,7 @@ Listado:
 }
 ```
 
-Detalle:
+Detail:
 
 ```json
 {
@@ -97,7 +97,7 @@ Error:
 }
 ```
 
-## Calidad
+## Quality
 
 ```bash
 go test ./...

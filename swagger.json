@@ -3,7 +3,7 @@
   "info": {
     "title": "pharmacies-seeker",
     "version": "1.0.0",
-    "description": "API para consultar farmacias y farmacias de turno con cache en memoria."
+    "description": "API for querying pharmacies and duty pharmacies with in-memory caching."
   },
   "schemes": [
     "http"
@@ -17,7 +17,7 @@
         "summary": "Liveness probe",
         "responses": {
           "200": {
-            "description": "Servicio vivo",
+            "description": "Service is live",
             "schema": {
               "$ref": "#/definitions/HealthResponse"
             }
@@ -30,13 +30,13 @@
         "summary": "Readiness probe",
         "responses": {
           "200": {
-            "description": "Catálogos sincronizados",
+            "description": "Catalogs are synchronized",
             "schema": {
               "$ref": "#/definitions/HealthResponse"
             }
           },
           "503": {
-            "description": "Catálogos aún no sincronizados",
+            "description": "Catalogs are not synchronized yet",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -46,7 +46,7 @@
     },
     "/api/v1/pharmacies": {
       "get": {
-        "summary": "Listar farmacias",
+        "summary": "List pharmacies",
         "parameters": [
           {
             "name": "commune",
@@ -61,13 +61,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Listado de farmacias",
+            "description": "Pharmacy list",
             "schema": {
               "$ref": "#/definitions/PharmacyListResponse"
             }
           },
           "503": {
-            "description": "Catálogo no disponible",
+            "description": "Catalog unavailable",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -77,7 +77,7 @@
     },
     "/api/v1/pharmacies/duty": {
       "get": {
-        "summary": "Listar farmacias de turno",
+        "summary": "List duty pharmacies",
         "parameters": [
           {
             "name": "commune",
@@ -92,13 +92,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Listado de farmacias de turno",
+            "description": "Duty pharmacy list",
             "schema": {
               "$ref": "#/definitions/PharmacyListResponse"
             }
           },
           "503": {
-            "description": "Catálogo no disponible",
+            "description": "Catalog unavailable",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -108,7 +108,7 @@
     },
     "/api/v1/pharmacies/{id}": {
       "get": {
-        "summary": "Obtener farmacia por ID",
+        "summary": "Get pharmacy by ID",
         "parameters": [
           {
             "name": "id",
@@ -119,25 +119,25 @@
         ],
         "responses": {
           "200": {
-            "description": "Detalle de farmacia",
+            "description": "Pharmacy detail",
             "schema": {
               "$ref": "#/definitions/PharmacyResponse"
             }
           },
           "400": {
-            "description": "ID inválido",
+            "description": "Invalid ID",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
           },
           "404": {
-            "description": "Farmacia no encontrada",
+            "description": "Pharmacy not found",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
           },
           "503": {
-            "description": "Catálogo no disponible",
+            "description": "Catalog unavailable",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
