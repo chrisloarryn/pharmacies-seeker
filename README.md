@@ -50,7 +50,7 @@ api:
 - [Testify](github.com/stretchr/testify)
 ### Requirements
 
-- Go 1.18
+- Go 1.26.1
 - Docker
 - Docker Compose
 - Make

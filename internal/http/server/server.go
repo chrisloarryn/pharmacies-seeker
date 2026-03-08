@@ -8,7 +8,7 @@ import (
 	"pharmacies-seeker/internal/http/server/handlers"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 type ServerHTTP struct{}
@@ -28,7 +28,7 @@ func Run(container dependencies.Container) {
 
 	api := r.Group("/api")
 
-	v1 := api.Group("/v1", func(c *fiber.Ctx) error { // middleware for /api/v1
+	v1 := api.Group("/v1", func(c fiber.Ctx) error { // middleware for /api/v1
 		c.Set("Version", "v1")
 		return c.Next()
 	})
@@ -46,7 +46,7 @@ func Run(container dependencies.Container) {
 	log.Fatal(r.Listen(fmt.Sprintf(":%s", port)))
 }
 
-func pingpong(ctx *fiber.Ctx) error {
+func pingpong(ctx fiber.Ctx) error {
 	ctx.Status(http.StatusOK)
 	err := ctx.JSON(
 		fiber.Map{

@@ -8,7 +8,7 @@ import (
 	"pharmacies-seeker/internal/infraestucture/dependencies"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 type FindAllPharmaciesHandler struct {
@@ -28,7 +28,7 @@ func NewFindAllPharmaciesHandler(container dependencies.Container) *FindAllPharm
 // Responses:
 //
 // - 200: GetAllPharmaciesResponse
-func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx *fiber.Ctx) error {
+func (handler *FindAllPharmaciesHandler) GetAllPharmacies(ctx fiber.Ctx) error {
 	communeName := ctx.Query("commune", "")
 	name := ctx.Query("name", "")
 	responseType := ctx.Query("type")

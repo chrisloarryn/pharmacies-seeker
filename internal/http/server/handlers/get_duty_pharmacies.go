@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 
 	"pharmacies-seeker/internal/core/domain/fetcher"
 	"pharmacies-seeker/internal/core/domain/pharmacy"
@@ -27,7 +27,7 @@ func NewDutyPharmaciesHandler(container dependencies.Container) *DutyPharmaciesH
 //
 // Responses:
 //   - 200: GetAllPharmaciesResponse
-func (h *DutyPharmaciesHandler) GetDutyPharmacies(ctx *fiber.Ctx) error {
+func (h *DutyPharmaciesHandler) GetDutyPharmacies(ctx fiber.Ctx) error {
 	commune := ctx.Query("commune", "")
 	name := ctx.Query("name", "")
 	responseType := ctx.Query("type")

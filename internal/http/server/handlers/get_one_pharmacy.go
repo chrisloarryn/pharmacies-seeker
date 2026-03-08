@@ -5,7 +5,7 @@ import (
 	"pharmacies-seeker/internal/core/usecases"
 	"pharmacies-seeker/internal/infraestucture/dependencies"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 type FindOnePharmacyHandler struct {
@@ -18,7 +18,7 @@ func NewFindOnePharmacyHandler(container dependencies.Container) *FindOnePharmac
 	}
 }
 
-func (handler *FindOnePharmacyHandler) FindOnePharmacy(ctx *fiber.Ctx) error {
+func (handler *FindOnePharmacyHandler) FindOnePharmacy(ctx fiber.Ctx) error {
 	// communeName := ctx.Params("commune")
 	communeName := ctx.Query("name")
 
