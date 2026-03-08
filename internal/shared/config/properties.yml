@@ -1,7 +1,0 @@
-server:
-  port: 8080
-
-api:
-  pharmacy:
-    url: https://api.boostr.cl/pharmacies.json
-    duty_url: https://api.boostr.cl/pharmacies/24h.json

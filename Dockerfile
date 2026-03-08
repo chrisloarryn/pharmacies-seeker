@@ -11,7 +11,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o /pharmacy-api cmd/main.go
+RUN go build -o /pharmacy-api ./cmd/api
 
 ##
 ## Deploy

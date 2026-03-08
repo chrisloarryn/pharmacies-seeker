@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+provider:
+  regular_url: https://api.boostr.cl/pharmacies.json
+  duty_url: https://api.boostr.cl/pharmacies/24h.json
+
+sync:
+  interval: 15m
+  timeout: 10s

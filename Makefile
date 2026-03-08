@@ -1,7 +1,7 @@
 # Project variables
 GOCMD ?= go
 PKG ?= ./...
-MAIN_PKG ?= cmd/main.go
+MAIN_PKG ?= ./cmd/api
 BINARY_NAME ?= pharmacy-api
 BIN_DIR ?= bin
 BIN_PATH := $(BIN_DIR)/$(BINARY_NAME)
@@ -31,7 +31,7 @@ help: ## Show this help
 
 # Run
 .PHONY: server run
-server run: ## Run the application (go run cmd/main.go)
+server run: ## Run the application (go run ./cmd/api)
 	$(GOCMD) run $(MAIN_PKG)
 
 # Build

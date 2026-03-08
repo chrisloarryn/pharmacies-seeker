@@ -1,60 +1,217 @@
 {
   "swagger": "2.0",
-  "info": {},
-  "paths": {},
-  "definitions": {
-    "Pharmacy": {
-      "description": "This type is used for unmarshaling JSON.",
-      "type": "object",
-      "title": "Pharmacy is a pharmacy",
-      "properties": {
-        "comuna_nombre": {
-          "description": "The commune name",
-          "type": "string",
-          "x-go-name": "ComunaNombre"
-        },
-        "local_direccion": {
-          "description": "The local address",
-          "type": "string",
-          "x-go-name": "LocalDireccion"
-        },
-        "local_nombre": {
-          "description": "The local name",
-          "type": "string",
-          "x-go-name": "LocalNombre"
-        },
-        "local_telefono": {
-          "description": "The local phone",
-          "type": "string",
-          "x-go-name": "LocalTelefono"
+  "info": {
+    "title": "pharmacies-seeker",
+    "version": "1.0.0",
+    "description": "API para consultar farmacias y farmacias de turno con cache en memoria."
+  },
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/health/live": {
+      "get": {
+        "summary": "Liveness probe",
+        "responses": {
+          "200": {
+            "description": "Servicio vivo",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          }
         }
-      },
-      "x-go-name": "Pharmacies",
-      "x-go-package": "pharmacies-seeker/internal/core/domain/pharmacy"
+      }
     },
-    "PharmacyXML": {
-      "description": "This type is used for unmarshaling JSON.",
+    "/health/ready": {
+      "get": {
+        "summary": "Readiness probe",
+        "responses": {
+          "200": {
+            "description": "Catálogos sincronizados",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          },
+          "503": {
+            "description": "Catálogos aún no sincronizados",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pharmacies": {
+      "get": {
+        "summary": "Listar farmacias",
+        "parameters": [
+          {
+            "name": "commune",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de farmacias",
+            "schema": {
+              "$ref": "#/definitions/PharmacyListResponse"
+            }
+          },
+          "503": {
+            "description": "Catálogo no disponible",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pharmacies/duty": {
+      "get": {
+        "summary": "Listar farmacias de turno",
+        "parameters": [
+          {
+            "name": "commune",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de farmacias de turno",
+            "schema": {
+              "$ref": "#/definitions/PharmacyListResponse"
+            }
+          },
+          "503": {
+            "description": "Catálogo no disponible",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pharmacies/{id}": {
+      "get": {
+        "summary": "Obtener farmacia por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de farmacia",
+            "schema": {
+              "$ref": "#/definitions/PharmacyResponse"
+            }
+          },
+          "400": {
+            "description": "ID inválido",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Farmacia no encontrada",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "503": {
+            "description": "Catálogo no disponible",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "HealthResponse": {
       "type": "object",
-      "title": "PharmacyXML is a pharmacy",
       "properties": {
-        "ComunaNombre": {
-          "description": "The commune name",
-          "type": "string"
-        },
-        "LocalDireccion": {
-          "description": "The local address",
-          "type": "string"
-        },
-        "LocalNombre": {
-          "description": "The local name",
-          "type": "string"
-        },
-        "LocalTelefono": {
-          "description": "The local phone",
+        "status": {
           "type": "string"
         }
-      },
-      "x-go-package": "pharmacies-seeker/internal/core/domain/pharmacy"
+      }
+    },
+    "Pharmacy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "commune": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      }
+    },
+    "PharmacyListResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pharmacy"
+          }
+        }
+      }
+    },
+    "PharmacyResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Pharmacy"
+        }
+      }
+    },
+    "APIError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/APIError"
+        }
+      }
     }
   }
 }
