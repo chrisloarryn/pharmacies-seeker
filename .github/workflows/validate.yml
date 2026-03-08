@@ -1,0 +1,375 @@
+name: Validate Go Application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  COVERAGE_THRESHOLD_PCT: ${{ vars.GO_COVERAGE_MINIMUM || '0' }}
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.publish-summary.outputs.status }}
+      tests_run: ${{ steps.publish-summary.outputs.tests_run }}
+      failures: ${{ steps.publish-summary.outputs.failures }}
+      skipped: ${{ steps.publish-summary.outputs.skipped }}
+      packages_total: ${{ steps.publish-summary.outputs.packages_total }}
+      packages_failed: ${{ steps.publish-summary.outputs.packages_failed }}
+      duration_seconds: ${{ steps.publish-summary.outputs.duration_seconds }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Run unit tests
+        id: run-tests
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p .artifacts/unit
+          set -o pipefail
+          go test -json ./... 2>&1 | tee .artifacts/unit/go-test.jsonl
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish unit summary
+        id: publish-summary
+        if: always()
+        run: |
+          python3 .github/scripts/publish_go_validation_summary.py unit \
+            --report-file .artifacts/unit/go-test.jsonl \
+            --summary-file "$GITHUB_STEP_SUMMARY" \
+            --output-file "$GITHUB_OUTPUT"
+
+      - name: Upload unit test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: |
+            .artifacts/unit/go-test.jsonl
+          if-no-files-found: ignore
+
+      - name: Fail if unit tests failed
+        if: always() && steps.run-tests.outputs.exit_code != '0'
+        run: exit 1
+
+  go-performance-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    outputs:
+      status: ${{ steps.publish-summary.outputs.status }}
+      benchmarks_total: ${{ steps.publish-summary.outputs.benchmarks_total }}
+      slowest_name: ${{ steps.publish-summary.outputs.slowest_name }}
+      slowest_ns_per_op: ${{ steps.publish-summary.outputs.slowest_ns_per_op }}
+      largest_alloc_bytes: ${{ steps.publish-summary.outputs.largest_alloc_bytes }}
+      largest_allocs_per_op: ${{ steps.publish-summary.outputs.largest_allocs_per_op }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Discover benchmark packages
+        id: discover
+        shell: bash
+        run: |
+          mapfile -t benchmark_files < <(grep -R -l -E '^func Benchmark' --include='*_test.go' . || true)
+
+          if [ "${#benchmark_files[@]}" -eq 0 ]; then
+            echo "has_benchmarks=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          declare -A seen=()
+          packages=()
+          for file in "${benchmark_files[@]}"; do
+            dir=$(dirname "$file")
+            pkg="./${dir#./}"
+            if [ -z "${seen[$pkg]:-}" ]; then
+              seen[$pkg]=1
+              packages+=("$pkg")
+            fi
+          done
+
+          echo "has_benchmarks=true" >> "$GITHUB_OUTPUT"
+          printf 'packages=%s\n' "${packages[*]}" >> "$GITHUB_OUTPUT"
+
+      - name: Run Go benchmarks
+        id: run-tests
+        if: steps.discover.outputs.has_benchmarks == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p .artifacts/benchmarks
+          set -o pipefail
+          go test -run '^$' -bench . -benchmem ${{ steps.discover.outputs.packages }} 2>&1 | tee .artifacts/benchmarks/go-bench.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish benchmark summary
+        id: publish-summary
+        if: always()
+        run: |
+          python3 .github/scripts/publish_go_validation_summary.py benchmark \
+            --log-file .artifacts/benchmarks/go-bench.txt \
+            --detected "${{ steps.discover.outputs.has_benchmarks }}" \
+            --summary-file "$GITHUB_STEP_SUMMARY" \
+            --output-file "$GITHUB_OUTPUT"
+
+      - name: Upload benchmark report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-report
+          path: |
+            .artifacts/benchmarks/go-bench.txt
+          if-no-files-found: ignore
+
+      - name: Fail if benchmark suite failed
+        if: always() && steps.discover.outputs.has_benchmarks == 'true' && steps.run-tests.outputs.exit_code != '0'
+        run: exit 1
+
+  api-behavior-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    outputs:
+      status: ${{ steps.publish-summary.outputs.status }}
+      tests_run: ${{ steps.publish-summary.outputs.tests_run }}
+      failures: ${{ steps.publish-summary.outputs.failures }}
+      skipped: ${{ steps.publish-summary.outputs.skipped }}
+      packages_total: ${{ steps.publish-summary.outputs.packages_total }}
+      packages_failed: ${{ steps.publish-summary.outputs.packages_failed }}
+      duration_seconds: ${{ steps.publish-summary.outputs.duration_seconds }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Discover API behavior packages
+        id: discover
+        shell: bash
+        run: |
+          mapfile -t candidate_files < <(
+            {
+              find . -type f \( \
+                -name '*_contract_test.go' -o \
+                -name '*_api_test.go' -o \
+                -name '*_bdd_test.go' -o \
+                -name '*_godog_test.go' \
+              \) -print
+              grep -R -l -E '^//go:build .*(contract|bdd|api|integration)' --include='*_test.go' .
+            } | sort -u
+          )
+
+          if [ "${#candidate_files[@]}" -eq 0 ]; then
+            echo "has_suite=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          declare -A seen=()
+          packages=()
+          for file in "${candidate_files[@]}"; do
+            dir=$(dirname "$file")
+            pkg="./${dir#./}"
+            if [ -z "${seen[$pkg]:-}" ]; then
+              seen[$pkg]=1
+              packages+=("$pkg")
+            fi
+          done
+
+          echo "has_suite=true" >> "$GITHUB_OUTPUT"
+          printf 'packages=%s\n' "${packages[*]}" >> "$GITHUB_OUTPUT"
+
+      - name: Run API behavior tests
+        id: run-tests
+        if: steps.discover.outputs.has_suite == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p .artifacts/api-bdd
+          set -o pipefail
+          go test -json -tags='bdd contract api integration' ${{ steps.discover.outputs.packages }} 2>&1 | tee .artifacts/api-bdd/go-api-bdd.jsonl
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish API behavior summary
+        id: publish-summary
+        if: always()
+        run: |
+          python3 .github/scripts/publish_go_validation_summary.py api \
+            --report-file .artifacts/api-bdd/go-api-bdd.jsonl \
+            --detected "${{ steps.discover.outputs.has_suite }}" \
+            --summary-file "$GITHUB_STEP_SUMMARY" \
+            --output-file "$GITHUB_OUTPUT"
+
+      - name: Upload API behavior report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-behavior-report
+          path: |
+            .artifacts/api-bdd/go-api-bdd.jsonl
+          if-no-files-found: ignore
+
+      - name: Fail if API behavior tests failed
+        if: always() && steps.discover.outputs.has_suite == 'true' && steps.run-tests.outputs.exit_code != '0'
+        run: exit 1
+
+  coverage-report:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    outputs:
+      status: ${{ steps.publish-summary.outputs.status }}
+      coverage_pct: ${{ steps.publish-summary.outputs.coverage_pct }}
+      threshold_pct: ${{ steps.publish-summary.outputs.threshold_pct }}
+      below_threshold: ${{ steps.publish-summary.outputs.below_threshold }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Run coverage report
+        id: run-tests
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p .artifacts/coverage
+          set -o pipefail
+          go test -coverprofile=.artifacts/coverage/coverage.out ./... 2>&1 | tee .artifacts/coverage/go-cover.log
+          test_exit=${PIPESTATUS[0]}
+
+          cover_exit=0
+          if [ "$test_exit" -eq 0 ] && [ -f .artifacts/coverage/coverage.out ]; then
+            go tool cover -func=.artifacts/coverage/coverage.out | tee .artifacts/coverage/coverage-summary.txt
+            cover_exit=${PIPESTATUS[0]}
+          fi
+
+          if [ "$test_exit" -ne 0 ]; then
+            exit_code=$test_exit
+          else
+            exit_code=$cover_exit
+          fi
+
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+
+      - name: Publish coverage summary
+        id: publish-summary
+        if: always()
+        run: |
+          python3 .github/scripts/publish_go_validation_summary.py coverage \
+            --report-file .artifacts/coverage/coverage-summary.txt \
+            --threshold-pct "${{ env.COVERAGE_THRESHOLD_PCT }}" \
+            --summary-file "$GITHUB_STEP_SUMMARY" \
+            --output-file "$GITHUB_OUTPUT"
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            .artifacts/coverage/coverage.out
+            .artifacts/coverage/coverage-summary.txt
+            .artifacts/coverage/go-cover.log
+          if-no-files-found: ignore
+
+      - name: Fail if coverage step failed
+        if: always() && steps.run-tests.outputs.exit_code != '0'
+        run: exit 1
+
+      - name: Fail if coverage threshold is not met
+        if: always() && steps.publish-summary.outputs.below_threshold == 'true'
+        run: exit 1
+
+  validation-summary:
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - unit-tests
+      - go-performance-tests
+      - api-behavior-tests
+      - coverage-report
+
+    steps:
+      - name: Publish workflow summary
+        env:
+          UNIT_STATUS: ${{ needs.unit-tests.outputs.status }}
+          UNIT_TESTS_RUN: ${{ needs.unit-tests.outputs.tests_run }}
+          UNIT_FAILURES: ${{ needs.unit-tests.outputs.failures }}
+          UNIT_SKIPPED: ${{ needs.unit-tests.outputs.skipped }}
+          UNIT_PACKAGES: ${{ needs.unit-tests.outputs.packages_total }}
+          UNIT_DURATION: ${{ needs.unit-tests.outputs.duration_seconds }}
+          PERF_STATUS: ${{ needs.go-performance-tests.outputs.status }}
+          PERF_BENCHMARKS: ${{ needs.go-performance-tests.outputs.benchmarks_total }}
+          PERF_SLOWEST_NAME: ${{ needs.go-performance-tests.outputs.slowest_name }}
+          PERF_SLOWEST_NS: ${{ needs.go-performance-tests.outputs.slowest_ns_per_op }}
+          PERF_ALLOC_BYTES: ${{ needs.go-performance-tests.outputs.largest_alloc_bytes }}
+          PERF_ALLOCS: ${{ needs.go-performance-tests.outputs.largest_allocs_per_op }}
+          API_STATUS: ${{ needs.api-behavior-tests.outputs.status }}
+          API_TESTS_RUN: ${{ needs.api-behavior-tests.outputs.tests_run }}
+          API_FAILURES: ${{ needs.api-behavior-tests.outputs.failures }}
+          API_SKIPPED: ${{ needs.api-behavior-tests.outputs.skipped }}
+          API_PACKAGES: ${{ needs.api-behavior-tests.outputs.packages_total }}
+          API_DURATION: ${{ needs.api-behavior-tests.outputs.duration_seconds }}
+          COVERAGE_STATUS: ${{ needs.coverage-report.outputs.status }}
+          COVERAGE_PCT: ${{ needs.coverage-report.outputs.coverage_pct }}
+          COVERAGE_THRESHOLD_PCT: ${{ needs.coverage-report.outputs.threshold_pct }}
+        shell: bash
+        run: |
+          status_label() {
+            case "$1" in
+              success) echo "PASS" ;;
+              failure) echo "FAIL" ;;
+              skipped) echo "SKIPPED" ;;
+              empty) echo "NO TESTS" ;;
+              *) echo "UNKNOWN" ;;
+            esac
+          }
+
+          {
+            echo "## Validation Summary"
+            echo ""
+            echo "| Stage | Result | Highlights |"
+            echo "| --- | --- | --- |"
+            echo "| Unit tests | $(status_label "${UNIT_STATUS}") | tests=${UNIT_TESTS_RUN:-0}, failures=${UNIT_FAILURES:-0}, skipped=${UNIT_SKIPPED:-0}, packages=${UNIT_PACKAGES:-0}, duration=${UNIT_DURATION:-0}s |"
+            echo "| Go benchmarks | $(status_label "${PERF_STATUS}") | benchmarks=${PERF_BENCHMARKS:-0}, slowest=${PERF_SLOWEST_NAME:-n/a}, slowest time=${PERF_SLOWEST_NS:-0} ns/op, max alloc=${PERF_ALLOC_BYTES:-0} B/op, max allocs=${PERF_ALLOCS:-0} allocs/op |"
+            echo "| API behavior / BDD | $(status_label "${API_STATUS}") | tests=${API_TESTS_RUN:-0}, failures=${API_FAILURES:-0}, skipped=${API_SKIPPED:-0}, packages=${API_PACKAGES:-0}, duration=${API_DURATION:-0}s |"
+            echo "| Coverage | $(status_label "${COVERAGE_STATUS}") | total=${COVERAGE_PCT:-0}%, threshold=${COVERAGE_THRESHOLD_PCT:-0}% |"
+            echo ""
+            echo "Artifacts:"
+            echo "- \`unit-test-report\`"
+            echo "- \`benchmark-report\`"
+            echo "- \`api-behavior-report\`"
+            echo "- \`coverage-report\`"
+          } >> "$GITHUB_STEP_SUMMARY"
